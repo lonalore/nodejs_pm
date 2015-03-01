@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e107Plugin name="Node.js PM" lan="LAN_PLUGIN_NODEJS_PM_NAME" version="1.0" date="2015-02-05" compatibility="2.0" installRequired="true">
+    <author name="lonalore" url="http://lonalore.hu"/>
+    <summary lan="LAN_PLUGIN_NODEJS_PM_SUMM">Node.js Private Message</summary>
+    <description lan="LAN_PLUGIN_NODEJS_PM_DESC">Displaying realtime notification about private messages.</description>
+    <keywords>
+        <word>nodejs</word>
+        <word>server</word>
+        <word>api</word>
+    </keywords>
+    <category>tools</category>
+    <copyright></copyright>
+    <adminLinks>
+        <link url="admin_config.php" description="" icon="images/icon_32.png" iconSmall="images/icon_16.png" primary="true">LAN_CONFIGURE</link>
+    </adminLinks>
+    <pluginPrefs>
+        <pref name='nodejs_pm_alert'>1</pref>
+        <pref name='nodejs_pm_length'>100</pref>
+        <pref name='nodejs_pm_sound'>1</pref>
+    </pluginPrefs>
+    <dependencies>
+        <plugin name='nodejs' min_version='1.0' />
+        <plugin name='nodejs_notify' min_version='1.0' />
+        <plugin name='pm' min_version='3.0' />
+    </dependencies>
+</e107Plugin>
