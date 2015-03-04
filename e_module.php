@@ -26,24 +26,44 @@ function nodejs_pm_event_user_pm_sent_callback($info)
 
 	if($to > 0)
 	{
-		$template = e107::getTemplate('nodejs_pm');
-		$sc = e107::getScBatch('nodejs_pm', true);
-		$tp = e107::getParser();
-
-		$sc_vars = array(
-			'account' => e107::user($to),
-			'pm'      => $info,
-		);
-
-		$sc->setVars($sc_vars);
-		$markup = $tp->parseTemplate($template['ALERT'], true, $sc);
-
 		e107_require_once(e_PLUGIN . 'nodejs/nodejs.main.php');
-		$message = (object) array(
-			'channel' => 'nodejs_user_' . $to,
-			'callback' => 'pmNodejsAlert',
-			'markup' => $markup,
-		);
-		nodejs_send_message($message);
+		$plugPrefs = e107::getPlugConfig('nodejs_pm')->getPref();
+
+		// If show alert messages.
+		if((int) $plugPrefs['nodejs_pm_alert'] === 1)
+		{
+			$template = e107::getTemplate('nodejs_pm');
+			$sc = e107::getScBatch('nodejs_pm', true);
+			$tp = e107::getParser();
+
+			$sc_vars = array(
+				'account' => e107::user($to),
+				'pm'      => $info,
+			);
+
+			$sc->setVars($sc_vars);
+			$markup = $tp->parseTemplate($template['ALERT'], true, $sc);
+
+			$message = (object) array(
+				'channel'  => 'nodejs_user_' . $to,
+				'callback' => 'pmNodejsAlert',
+				'markup'   => $markup,
+			);
+			nodejs_enqueue_message($message);
+		}
+
+		// Count unread messages of targeted user.
+		$db = e107::getDb();
+		$new = $db->count('private_msg', '(*)', "WHERE pm_read = 0 AND pm_to = '" . $to . "' AND pm_read_del != 1");
+		if($new)
+		{
+			// Push the number of unread messages to client.
+			$message = (object) array(
+				'channel'  => 'nodejs_user_' . $to,
+				'callback' => 'pmNodejsMenu',
+				'data'     => $new,
+			);
+			nodejs_enqueue_message($message);
+		}
 	}
 }
