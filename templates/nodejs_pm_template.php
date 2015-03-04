@@ -4,7 +4,18 @@
  * Templates for plugins displays.
  */
 
-$NODEJS_PM_TEMPLATE['MENU'] = '';
+$NODEJS_PM_TEMPLATE['MENU'] = '
+<ul class="nav navbar-nav navbar-right">
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li></li>
+        </ul>
+    </li>
+</ul>';
 
 $NODEJS_PM_TEMPLATE['ALERT'] = '
 <div class="wrapper-alert">
