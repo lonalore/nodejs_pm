@@ -4,6 +4,8 @@
  * Templates for plugins displays.
  */
 
+$NODEJS_PM_TEMPLATE['MENU'] = '';
+
 $NODEJS_PM_TEMPLATE['ALERT'] = '
 <div class="wrapper-alert">
   <div class="close-button"></div>
@@ -14,7 +16,9 @@ $NODEJS_PM_TEMPLATE['ALERT'] = '
     <span class="username">
       {USERNAME}
     </span>
-    {MESSAGE}
+    <div class="message">
+        {MESSAGE}
+    </div>
     <div class="links">
       {LINKS}
     </div>

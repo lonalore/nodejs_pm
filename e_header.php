@@ -5,16 +5,18 @@
  * files to page header.
  */
 
-if (!defined('e107_INIT'))
+if(!defined('e107_INIT'))
 {
 	exit;
 }
+
 
 /**
  * Class nodejs_pm_e_header.
  */
 class nodejs_pm_e_header
 {
+
 	private $plugPrefs = array();
 
 	function __construct()
@@ -29,11 +31,13 @@ class nodejs_pm_e_header
 	 */
 	function include_components()
 	{
+		e107::css('nodejs_pm', 'css/nodejs_pm.css');
 		e107::js('nodejs_pm', 'libraries/audiojs/audio.min.js', 'jquery', 2);
 
 		$js_options = array(
-			'nodejs_pm_alert' => $this->plugPrefs['nodejs_pm_alert'],
-			'nodejs_pm_sound' => $this->plugPrefs['nodejs_pm_sound'],
+			'nodejs_pm_alert'      => (int) $this->plugPrefs['nodejs_pm_alert'],
+			'nodejs_pm_sound'      => (int) $this->plugPrefs['nodejs_pm_sound'],
+			'nodejs_pm_sound_path' => SITEURLBASE . e_PLUGIN_ABS . 'nodejs_pm',
 		);
 
 		$options = nodejs_json_encode($js_options);
@@ -42,6 +46,7 @@ class nodejs_pm_e_header
 		e107::js('inline', $js_config, null, 3);
 	}
 }
+
 
 // Class instantiation.
 new nodejs_pm_e_header;

@@ -27,35 +27,31 @@ class nodejs_pm_shortcodes extends e_shortcode
 	function sc_avatar()
 	{
 		$tp = e107::getParser();
-		$tp->thumbWidth = 40;
-		$tp->thumbHeight = 40;
+		$tp->thumbWidth = 50;
+		$tp->thumbHeight = 50;
+		return $tp->toAvatar($this->var['account']);
+	}
 
-		return $tp->toAvatar($this->var);
+
+	function sc_username() {
+		$uparams = array(
+			'id'   => $this->var['account']['user_id'],
+			'name' => $this->var['account']['user_name'],
+		);
+		return '<a href="' . e107::getUrl()->create('user/profile/view', $uparams) . '">' . $uparams['name'] . '</a>';
 	}
 
 
 	function sc_links()
 	{
-		$uid = (int) $this->var['uid'];
-
-		if ($uid === 0)
-		{
-			return $this->var['user_name'];
-		}
-
-		return '<a href="' . e_HTTP . 'user.php?id.' . $uid . '">' . $this->var['user_name'] . '</a>';
+		return '<a href="' . e_PLUGIN_ABS . 'pm/pm.php?show.' . $this->var['pm']['pm_id'] . '">' . LAN_NODEJS_PM_MENU_02 . '</a>';
 	}
 
 
 	function sc_message()
 	{
 		$tp = e107::getParser();
-
-		$emotes_active = $this->plugPrefs['nodejs_chatbox_emote'] ? 'USER_BODY, emotes_on' : 'USER_BODY, emotes_off';
-		$wordwrap = $this->plugPrefs['nodejs_chatbox_wordwrap'];
-
-		$message = $tp->toHTML($this->var['message'], false, $emotes_active, $this->var['uid'], $wordwrap);
-
-		return $message;
+		$message = strip_tags($this->var['pm']['pm_text']);
+		return $tp->text_truncate($message, $this->plugPrefs['nodejs_pm_length']);
 	}
 }
