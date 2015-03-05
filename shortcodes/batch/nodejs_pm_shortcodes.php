@@ -4,10 +4,11 @@
  * Class installation to define shortcodes.
  */
 
-if (!defined('e107_INIT'))
+if(!defined('e107_INIT'))
 {
 	exit;
 }
+
 
 /**
  * Class nodejs_pm_shortcodes.
@@ -33,7 +34,8 @@ class nodejs_pm_shortcodes extends e_shortcode
 	}
 
 
-	function sc_username() {
+	function sc_username()
+	{
 		$uparams = array(
 			'id'   => $this->var['account']['user_id'],
 			'name' => $this->var['account']['user_name'],
@@ -56,8 +58,32 @@ class nodejs_pm_shortcodes extends e_shortcode
 	}
 
 
-	function sc_newcount() {
+	function sc_newcount()
+	{
 		$count = (int) $this->var['new'] > 0 ? $this->var['new'] : '';
 		return $count;
+	}
+
+
+	function sc_header() {
+		return LAN_NODEJS_PM_MENU_01;
+	}
+
+
+	function sc_inbox()
+	{
+		return '<a href="' . e_PLUGIN_ABS . 'pm/pm.php?inbox">' . LAN_NODEJS_PM_MENU_03 . '</a>';
+	}
+
+
+	function sc_outbox()
+	{
+		return '<a href="' . e_PLUGIN_ABS . 'pm/pm.php?outbox">' . LAN_NODEJS_PM_MENU_04 . '</a>';
+	}
+
+
+	function sc_compose()
+	{
+		return '<a href="' . e_PLUGIN_ABS . 'pm/pm.php?send">' . LAN_NODEJS_PM_MENU_05 . '</a>';
 	}
 }

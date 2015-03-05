@@ -1,27 +1,31 @@
 (function ($) {
     e107Nodejs.Nodejs.callbacks.pmNodejsAlert = {
         callback: function (message) {
-            if (parseInt(e107NodejsPM.settings.nodejs_pm_alert) === 1) {
-                if (!$('body').find('.nodejs-messages-wrapper').length) {
-                    $('body').append('<div class="nodejs-messages-wrapper" />');
-                }
+            switch (message.type) {
+                case "pmNodejsAlert":
+                    if (parseInt(e107NodejsPM.settings.nodejs_pm_alert) === 1) {
+                        if (!$('body').find('.nodejs-messages-wrapper').length) {
+                            $('body').append('<div class="nodejs-messages-wrapper" />');
+                        }
 
-                $messageAlert = $(message.markup);
-                $('.nodejs-messages-wrapper').prepend($messageAlert);
+                        $messageAlert = $(message.markup);
+                        $('.nodejs-messages-wrapper').prepend($messageAlert);
 
-                // Remove alert after 10 seconds.
-                nodejs_pm_remove_alert($messageAlert, 10000, 500);
+                        // Remove alert after 10 seconds.
+                        nodejs_pm_remove_alert($messageAlert, 10000, 500);
 
-                if (parseInt(e107NodejsPM.settings.nodejs_pm_sound) === 1) {
-                    // Play sound.
-                    nodejs_pm_sound_alert();
-                }
+                        if (parseInt(e107NodejsPM.settings.nodejs_pm_sound) === 1) {
+                            // Play sound.
+                            nodejs_pm_sound_alert();
+                        }
 
-                // Remove alert on close button.
-                $messageAlert.find('.close-button').bind('click', function (e) {
-                    nodejs_pm_remove_alert($(this).parent(), 1, 500);
-                    e.stopPropagation();
-                });
+                        // Remove alert on close button.
+                        $messageAlert.find('.close-button').bind('click', function (e) {
+                            nodejs_pm_remove_alert($(this).parent(), 1, 500);
+                            e.stopPropagation();
+                        });
+                    }
+                    break;
             }
         }
     };

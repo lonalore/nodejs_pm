@@ -47,6 +47,7 @@ function nodejs_pm_event_user_pm_sent_callback($info)
 			$message = (object) array(
 				'channel'  => 'nodejs_user_' . $to,
 				'callback' => 'pmNodejsAlert',
+				'type' => 'pmNodejsAlert',
 				'markup'   => $markup,
 			);
 			nodejs_enqueue_message($message);
@@ -61,6 +62,7 @@ function nodejs_pm_event_user_pm_sent_callback($info)
 			$message = (object) array(
 				'channel'  => 'nodejs_user_' . $to,
 				'callback' => 'pmNodejsMenu',
+				'type' => 'pmNodejsMenu',
 				'data'     => $new,
 			);
 			nodejs_enqueue_message($message);
