@@ -27,8 +27,10 @@ class nodejs_pm_menu
 
 	function __construct()
 	{
-		$this->plugPrefs = e107::getPlugConfig('nodejs_pm')->getPref();
-		$this->renderMenu();
+		if (USER) {
+			$this->plugPrefs = e107::getPlugConfig('nodejs_pm')->getPref();
+			$this->renderMenu();
+		}
 	}
 
 
@@ -37,6 +39,13 @@ class nodejs_pm_menu
 		$template = e107::getTemplate('nodejs_pm');
 		$sc = e107::getScBatch('nodejs_pm', true);
 		$tp = e107::getParser();
+		$db = e107::getDb();
+
+		$new = $db->count('private_msg', '(*)', "WHERE pm_read = 0 AND pm_to = '" . USERID . "' AND pm_read_del != 1");
+
+		$sc->setVars(array(
+			'new' => $new,
+		));
 
 		$text = $tp->parseTemplate($template['MENU'], true, $sc);
 

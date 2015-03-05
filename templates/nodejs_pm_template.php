@@ -9,7 +9,7 @@ $NODEJS_PM_TEMPLATE['MENU'] = '
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-            <span class="badge"></span>
+            <span class="badge">{NEWCOUNT}</span>
             <b class="caret"></b>
         </a>
         <ul class="dropdown-menu">

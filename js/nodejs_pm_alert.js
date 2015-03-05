@@ -14,7 +14,7 @@
 
                 if (parseInt(e107NodejsPM.settings.nodejs_pm_sound) === 1) {
                     // Play sound.
-                    nodejs_pm_sound_alert('alert');
+                    nodejs_pm_sound_alert();
                 }
 
                 // Remove alert on close button.
@@ -56,20 +56,14 @@
      *
      * @todo Change this in future.
      */
-    function nodejs_pm_sound_alert(type) {
+    function nodejs_pm_sound_alert() {
         var settings = e107NodejsPM.settings,
             audioSel = 'audio[id*="pm-alert"]',
             html;
 
         if (parseInt(settings.nodejs_pm_sound) == 1) {
-            if (type == 'message') {
-                soundPath = settings.nodejs_pm_sound_path + '/sounds/message.mp3';
-                html = '<audio id="pm-alert-1" class="message" src="' + soundPath + '"></audio>';
-            }
-            else if (type == 'alert') {
-                soundPath = settings.nodejs_pm_sound_path + '/sounds/alert.mp3';
-                html = '<audio id="pm-alert-2" class="alert" src="' + soundPath + '"></audio>';
-            }
+            var soundPath = settings.nodejs_pm_sound_path + '/sounds/message.mp3';
+            html = '<audio id="pm-alert-2" class="alert" src="' + soundPath + '"></audio>';
 
             $('body').append(html);
 

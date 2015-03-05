@@ -54,4 +54,10 @@ class nodejs_pm_shortcodes extends e_shortcode
 		$message = strip_tags($this->var['pm']['pm_text']);
 		return $tp->text_truncate($message, $this->plugPrefs['nodejs_pm_length']);
 	}
+
+
+	function sc_newcount() {
+		$count = (int) $this->var['new'] > 0 ? $this->var['new'] : '';
+		return $count;
+	}
 }
