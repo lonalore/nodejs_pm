@@ -37,7 +37,7 @@ function nodejs_pm_event_user_pm_sent_callback($info)
 			$tp = e107::getParser();
 
 			$sc_vars = array(
-				'account' => e107::user($to),
+				'account' => e107::user($info['pm_from']),
 				'pm'      => $info,
 			);
 
