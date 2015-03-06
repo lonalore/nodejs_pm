@@ -72,18 +72,18 @@ class nodejs_pm_shortcodes extends e_shortcode
 
 	function sc_inbox()
 	{
-		return '<a href="' . e_PLUGIN_ABS . 'pm/pm.php?inbox">' . LAN_NODEJS_PM_MENU_03 . '</a>';
+		return '<a href="' . e_PLUGIN_ABS . 'pm/pm.php?inbox"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span> ' . LAN_NODEJS_PM_MENU_03 . '</a>';
 	}
 
 
 	function sc_outbox()
 	{
-		return '<a href="' . e_PLUGIN_ABS . 'pm/pm.php?outbox">' . LAN_NODEJS_PM_MENU_04 . '</a>';
+		return '<a href="' . e_PLUGIN_ABS . 'pm/pm.php?outbox"><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> ' . LAN_NODEJS_PM_MENU_04 . '</a>';
 	}
 
 
 	function sc_compose()
 	{
-		return '<a href="' . e_PLUGIN_ABS . 'pm/pm.php?send">' . LAN_NODEJS_PM_MENU_05 . '</a>';
+		return '<a href="' . e_PLUGIN_ABS . 'pm/pm.php?send"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> ' . LAN_NODEJS_PM_MENU_05 . '</a>';
 	}
 }

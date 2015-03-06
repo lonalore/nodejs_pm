@@ -14,9 +14,15 @@ $NODEJS_PM_TEMPLATE['MENU'] = '
         </a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="nodejs-pm">
             <li role="presentation" class="nav-header dropdown-header">{HEADER}</li>
-	        <li role="presentation">{INBOX}</li>
-	        <li role="presentation">{OUTBOX}</li>
-	        <li role="presentation">{COMPOSE}</li>
+	        <li role="presentation">
+	            {INBOX}
+            </li>
+	        <li role="presentation">
+	            {OUTBOX}
+            </li>
+	        <li role="presentation">
+	            {COMPOSE}
+            </li>
         </ul>
     </li>
 </ul>';
