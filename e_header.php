@@ -40,10 +40,10 @@ class nodejs_pm_e_header
 			'nodejs_pm_sound_path' => SITEURLBASE . e_PLUGIN_ABS . 'nodejs_pm',
 		);
 
-		$options = nodejs_json_encode($js_options);
-		$js_config = 'var e107NodejsPM = e107NodejsPM || { settings: ' . $options . ' };';
+		e107::js('settings', array('nodejs_pm' => $js_options));
 
-		e107::js('inline', $js_config, null, 3);
+		e107::js('nodejs_pm', 'js/nodejs_pm_menu.js', 'jquery', 5);
+		e107::js('nodejs_pm', 'js/nodejs_pm_alert.js', 'jquery', 5);
 	}
 }
 

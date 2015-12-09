@@ -1,5 +1,5 @@
 (function ($) {
-    e107Nodejs.Nodejs.callbacks.pmNodejsMenu = {
+    e107.Nodejs.callbacks.pmNodejsMenu = {
         callback: function (message) {
             switch (message.type) {
                 case "pmNodejsMenu":

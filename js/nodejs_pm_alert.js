@@ -1,9 +1,9 @@
 (function ($) {
-    e107Nodejs.Nodejs.callbacks.pmNodejsAlert = {
+    e107.Nodejs.callbacks.pmNodejsAlert = {
         callback: function (message) {
             switch (message.type) {
                 case "pmNodejsAlert":
-                    if (parseInt(e107NodejsPM.settings.nodejs_pm_alert) === 1) {
+                    if (parseInt(e107.settings.nodejs_pm.nodejs_pm_alert) === 1) {
                         if (!$('body').find('.nodejs-messages-wrapper').length) {
                             $('body').append('<div class="nodejs-messages-wrapper" />');
                         }
@@ -14,7 +14,7 @@
                         // Remove alert after 10 seconds.
                         nodejs_pm_remove_alert($messageAlert, 10000, 500);
 
-                        if (parseInt(e107NodejsPM.settings.nodejs_pm_sound) === 1) {
+                        if (parseInt(e107.settings.nodejs_pm.nodejs_pm_sound) === 1) {
                             // Play sound.
                             nodejs_pm_sound_alert();
                         }
@@ -61,7 +61,7 @@
      * @todo Change this in future.
      */
     function nodejs_pm_sound_alert() {
-        var settings = e107NodejsPM.settings,
+        var settings = e107.settings.nodejs_pm,
             audioSel = 'audio[id*="pm-alert"]',
             html;
 

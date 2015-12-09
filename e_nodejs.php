@@ -11,33 +11,6 @@
 class nodejs_pm_nodejs
 {
 
-	private $plugPrefs = array();
-
-	/**
-	 * Node.js Javascript handlers.
-	 *
-	 * @return array
-	 *    The list of JavaScript handler files.
-	 */
-	public function jsHandlers()
-	{
-		$this->plugPrefs = e107::getPlugConfig('nodejs_pm')->getPref();
-
-		$handlers = array();
-
-		// Menu handler.
-		$handlers[] = 'js/nodejs_pm_menu.js';
-
-		// Show alert messages.
-		if((int) $this->plugPrefs['nodejs_pm_alert'] === 1)
-		{
-			$handlers[] = 'js/nodejs_pm_alert.js';
-		}
-
-		return $handlers;
-	}
-
-
 	/**
 	 * Node.js message handlers.
 	 *
