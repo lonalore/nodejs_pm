@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * This file is loaded every time the core of e107 is included. ie. Wherever
@@ -13,6 +14,7 @@ e107::lan('nodejs_pm', false, true);
 // Register events.
 $event = e107::getEvent();
 $event->register('user_pm_sent', 'nodejs_pm_event_user_pm_sent_callback');
+$event->register('user_pm_read', 'nodejs_pm_event_user_pm_read_callback');
 
 /**
  * Event callback after triggering "user_pm_sent".
@@ -47,7 +49,7 @@ function nodejs_pm_event_user_pm_sent_callback($info)
 			$message = (object) array(
 				'channel'  => 'nodejs_user_' . $to,
 				'callback' => 'pmNodejsAlert',
-				'type' => 'pmNodejsAlert',
+				'type'     => 'pmNodejsAlert',
 				'markup'   => $markup,
 			);
 			nodejs_enqueue_message($message);
@@ -62,8 +64,43 @@ function nodejs_pm_event_user_pm_sent_callback($info)
 			$message = (object) array(
 				'channel'  => 'nodejs_user_' . $to,
 				'callback' => 'pmNodejsMenu',
-				'type' => 'pmNodejsMenu',
+				'type'     => 'pmNodejsMenu',
 				'data'     => $new,
+			);
+			nodejs_enqueue_message($message);
+		}
+	}
+}
+
+/**
+ * Event callback after triggering "user_pm_read".
+ *
+ * @param int $pm_id
+ *  PM ID.
+ */
+function nodejs_pm_event_user_pm_read_callback($pm_id = 0)
+{
+	$pm_id = (int) $pm_id;
+
+	if($pm_id > 0)
+	{
+		$db = e107::getDb();
+
+		$pm_to = $db->retrieve('private_msg', 'pm_to', 'pm_id = ' . $pm_id);
+
+		if((int) $pm_to > 0)
+		{
+			e107_require_once(e_PLUGIN . 'nodejs/nodejs.main.php');
+
+			// Count unread messages of targeted user.
+			$new = $db->count('private_msg', '(*)', "WHERE pm_read = 0 AND pm_to = '" . (int) $pm_to . "' AND pm_read_del != 1");
+
+			// Push the number of unread messages to client.
+			$message = (object) array(
+				'channel'  => 'nodejs_user_' . (int) $pm_to,
+				'callback' => 'pmNodejsMenu',
+				'type'     => 'pmNodejsMenu',
+				'data'     => (int) $new,
 			);
 			nodejs_enqueue_message($message);
 		}
