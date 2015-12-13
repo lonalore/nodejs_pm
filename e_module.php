@@ -105,7 +105,7 @@ function nodejs_pm_event_user_pm_read_callback($pm_id = 0)
 				$sc_vars = array(
 					'account' => e107::user($pm_to),
 					'pm'      => array(
-						'pm_id' => $pm_id,
+
 					),
 				);
 
@@ -117,7 +117,7 @@ function nodejs_pm_event_user_pm_read_callback($pm_id = 0)
 					'callback' => 'pmNodejsAlert',
 					'type'     => 'pmNodejsAlert',
 					'markup'   => $markup,
-					'delay'    => 5000,
+					'delay' => 5000,
 				);
 				nodejs_enqueue_message($message);
 			}

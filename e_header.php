@@ -32,12 +32,11 @@ class nodejs_pm_e_header
 	function include_components()
 	{
 		e107::css('nodejs_pm', 'css/nodejs_pm.css');
-		e107::js('nodejs_pm', 'libraries/audiojs/audio.min.js', 'jquery', 2);
 
+		// TODO: user defined values...
 		$js_options = array(
-			'nodejs_pm_alert'      => (int) $this->plugPrefs['nodejs_pm_alert'],
-			'nodejs_pm_sound'      => (int) $this->plugPrefs['nodejs_pm_sound'],
-			'nodejs_pm_sound_path' => SITEURLBASE . e_PLUGIN_ABS . 'nodejs_pm',
+			'nodejs_pm_alert' => (int) $this->plugPrefs['nodejs_pm_alert'],
+			'nodejs_pm_sound' => (int) $this->plugPrefs['nodejs_pm_sound'],
 		);
 
 		e107::js('settings', array('nodejs_pm' => $js_options));
