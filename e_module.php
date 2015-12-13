@@ -32,7 +32,7 @@ function nodejs_pm_event_user_pm_sent_callback($info)
 		$plugPrefs = e107::getPlugConfig('nodejs_pm')->getPref();
 
 		// If show alert messages.
-		if((int) $plugPrefs['nodejs_pm_alert'] === 1)
+		if((int) vartrue($plugPrefs['nodejs_pm_alert']) === 1)
 		{
 			$template = e107::getTemplate('nodejs_pm');
 			$sc = e107::getScBatch('nodejs_pm', true);
@@ -66,6 +66,7 @@ function nodejs_pm_event_user_pm_sent_callback($info)
 				'callback' => 'pmNodejsMenu',
 				'type'     => 'pmNodejsMenu',
 				'data'     => $new,
+				'delay'    => 3000,
 			);
 			nodejs_enqueue_message($message);
 		}
@@ -85,9 +86,45 @@ function nodejs_pm_event_user_pm_read_callback($pm_id = 0)
 	if($pm_id > 0)
 	{
 		$db = e107::getDb();
+		$plugPrefs = e107::getPlugConfig('nodejs_pm')->getPref();
 
+		// Notify sender.
+		// If show alert messages.
+		if((int) vartrue($plugPrefs['nodejs_pm_alert_read']) === 1)
+		{
+			$pm_from = $db->retrieve('private_msg', 'pm_from', 'pm_id = ' . $pm_id);
+			$pm_to = $db->retrieve('private_msg', 'pm_to', 'pm_id = ' . $pm_id);
+			if((int) $pm_from > 0 && (int) $pm_to > 0)
+			{
+				e107_require_once(e_PLUGIN . 'nodejs/nodejs.main.php');
+
+				$template = e107::getTemplate('nodejs_pm');
+				$sc = e107::getScBatch('nodejs_pm', true);
+				$tp = e107::getParser();
+
+				$sc_vars = array(
+					'account' => e107::user($pm_to),
+					'pm'      => array(
+						'pm_id' => $pm_id,
+					),
+				);
+
+				$sc->setVars($sc_vars);
+				$markup = $tp->parseTemplate($template['ALERT_READ'], true, $sc);
+
+				$message = (object) array(
+					'channel'  => 'nodejs_user_' . (int) $pm_from,
+					'callback' => 'pmNodejsAlert',
+					'type'     => 'pmNodejsAlert',
+					'markup'   => $markup,
+					'delay'    => 5000,
+				);
+				nodejs_enqueue_message($message);
+			}
+		}
+
+		// Update counter in menu.
 		$pm_to = $db->retrieve('private_msg', 'pm_to', 'pm_id = ' . $pm_id);
-
 		if((int) $pm_to > 0)
 		{
 			e107_require_once(e_PLUGIN . 'nodejs/nodejs.main.php');
@@ -101,6 +138,7 @@ function nodejs_pm_event_user_pm_read_callback($pm_id = 0)
 				'callback' => 'pmNodejsMenu',
 				'type'     => 'pmNodejsMenu',
 				'data'     => (int) $new,
+				'delay'    => 5000,
 			);
 			nodejs_enqueue_message($message);
 		}

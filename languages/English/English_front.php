@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Definition of english strings for area Frontend.
@@ -9,3 +10,4 @@ define('LAN_NODEJS_PM_MENU_02', 'Read PM');
 define('LAN_NODEJS_PM_MENU_03', 'Inbox');
 define('LAN_NODEJS_PM_MENU_04', 'Outbox');
 define('LAN_NODEJS_PM_MENU_05', 'Compose');
+define('LAN_NODEJS_PM_MENU_06', '[x] has read your private message.');

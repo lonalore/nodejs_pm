@@ -21,6 +21,7 @@ class nodejs_pm_shortcodes extends e_shortcode
 
 	function __construct()
 	{
+		parent::__construct();
 		$this->plugPrefs = e107::getPlugConfig('nodejs_pm')->getPref();
 	}
 
@@ -58,6 +59,13 @@ class nodejs_pm_shortcodes extends e_shortcode
 	}
 
 
+	function sc_message_read()
+	{
+		$name = '<strong>' . $this->var['account']['user_name'] . '</strong>';
+		return str_replace('[x]', $name, LAN_NODEJS_PM_MENU_06);
+	}
+
+
 	function sc_newcount()
 	{
 		$count = (int) $this->var['new'] > 0 ? $this->var['new'] : '';
@@ -65,7 +73,8 @@ class nodejs_pm_shortcodes extends e_shortcode
 	}
 
 
-	function sc_header() {
+	function sc_header()
+	{
 		return LAN_NODEJS_PM_MENU_01;
 	}
 
