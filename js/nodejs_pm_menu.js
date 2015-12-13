@@ -6,6 +6,10 @@
                     if (parseInt(message.data) > 0) {
                         $('#nodejs-pm a.dropdown-toggle span.badge').html(message.data);
                     }
+                    else
+                    {
+                        $('#nodejs-pm a.dropdown-toggle span.badge').html('');
+                    }
                     break;
             }
         }
