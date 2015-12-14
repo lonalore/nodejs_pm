@@ -31,7 +31,7 @@ class nodejs_pm_nodejs_notify
 			// plugin_nodejs_pm_alert
 			'field_alert' => 'new_pm_alert',
 			// Extended User Field name from plugin.xml to store configuration by user.
-			// plugin_nodejs_pm_sound
+			// plugin_nodejs_pm_new_pm_sound
 			'field_sound' => 'new_pm_sound',
 		);
 
@@ -43,7 +43,7 @@ class nodejs_pm_nodejs_notify
 			// plugin_nodejs_pm_alert
 			'field_alert' => 'read_pm_alert',
 			// Extended User Field name from plugin.xml to store configuration by user.
-			// plugin_nodejs_pm_sound
+			// plugin_nodejs_pm_read_pm_sound
 			'field_sound' => 'read_pm_sound',
 		);
 
