@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Class instantiation to prepare JavaScript configurations and include css/js
@@ -19,10 +20,23 @@ class nodejs_pm_e_header
 
 	private $plugPrefs = array();
 
+
+	private $defaultValues = array();
+
+
 	function __construct()
 	{
-		$this->plugPrefs = e107::getPlugConfig('nodejs_pm')->getPref();
-		$this->include_components();
+		if(USERID > 0)
+		{
+			$db = e107::getDb();
+			$this->plugPrefs = e107::getPlugConfig('nodejs_pm')->getPref();
+			$this->defaultValues = $db->retrieve('user_extended', '*', 'user_extended_id = ' . USERID);
+
+			if(is_array($this->defaultValues) && !empty($this->defaultValues))
+			{
+				$this->include_components();
+			}
+		}
 	}
 
 
@@ -33,10 +47,31 @@ class nodejs_pm_e_header
 	{
 		e107::css('nodejs_pm', 'css/nodejs_pm.css');
 
-		// TODO: user defined values...
+		// User defined settings.
+		$new_pm_alert = $this->defaultValues['user_plugin_nodejs_pm_new_pm_alert'];
+		$new_pm_sound = $this->defaultValues['user_plugin_nodejs_pm_new_pm_sound'];
+		$read_pm_alert = $this->defaultValues['user_plugin_nodejs_pm_read_pm_alert'];
+		$read_pm_sound = $this->defaultValues['user_plugin_nodejs_pm_read_pm_sound'];
+
+		// If admin disabled it globally.
+		if((int) $this->plugPrefs['nodejs_pm_alert'] === 0)
+		{
+			$new_pm_alert = 0;
+			$new_pm_sound = 0;
+		}
+
+		// If admin disabled it globally.
+		if((int) $this->plugPrefs['nodejs_pm_sound'] === 0)
+		{
+			$read_pm_alert = 0;
+			$read_pm_sound = 0;
+		}
+
 		$js_options = array(
-			'nodejs_pm_alert' => (int) $this->plugPrefs['nodejs_pm_alert'],
-			'nodejs_pm_sound' => (int) $this->plugPrefs['nodejs_pm_sound'],
+			'new_pm_alert'  => (int) $new_pm_alert,
+			'new_pm_sound'  => (int) $new_pm_sound,
+			'read_pm_alert' => (int) $read_pm_alert,
+			'read_pm_sound' => (int) $read_pm_sound,
 		);
 
 		e107::js('settings', array('nodejs_pm' => $js_options));

@@ -49,8 +49,9 @@ function nodejs_pm_event_user_pm_sent_callback($info)
 			$message = (object) array(
 				'channel'  => 'nodejs_user_' . $to,
 				'callback' => 'pmNodejsAlert',
-				'type'     => 'pmNodejsAlert',
+				'type'     => 'new_pm',
 				'markup'   => $markup,
+				'action' => 'new_pm',
 			);
 			nodejs_enqueue_message($message);
 		}
@@ -104,9 +105,7 @@ function nodejs_pm_event_user_pm_read_callback($pm_id = 0)
 
 				$sc_vars = array(
 					'account' => e107::user($pm_to),
-					'pm'      => array(
-
-					),
+					'pm'      => array(),
 				);
 
 				$sc->setVars($sc_vars);
@@ -115,9 +114,9 @@ function nodejs_pm_event_user_pm_read_callback($pm_id = 0)
 				$message = (object) array(
 					'channel'  => 'nodejs_user_' . (int) $pm_from,
 					'callback' => 'pmNodejsAlert',
-					'type'     => 'pmNodejsAlert',
+					'type'     => 'read_pm',
 					'markup'   => $markup,
-					'delay' => 5000,
+					'delay'    => 5000,
 				);
 				nodejs_enqueue_message($message);
 			}

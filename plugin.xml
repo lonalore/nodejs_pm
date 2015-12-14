@@ -24,4 +24,10 @@
         <plugin name='nodejs_notify' min_version='1.0' />
         <plugin name='pm' min_version='3.0' />
     </dependencies>
+    <extendedFields>
+        <field name="new_pm_alert" type='EUF_INTEGER' default='1' active="true" />
+        <field name="new_pm_sound" type='EUF_INTEGER' default='1' active="true" />
+        <field name="read_pm_alert" type='EUF_INTEGER' default='1' active="true" />
+        <field name="read_pm_sound" type='EUF_INTEGER' default='1' active="true" />
+    </extendedFields>
 </e107Plugin>
