@@ -2,7 +2,8 @@
 
 /**
  * @file
- *
+ * Describes Extended User Fields to display them on the global notification settings
+ * form of nodejs_notify plugin.
  */
 
 
