@@ -47,23 +47,25 @@ class nodejs_pm_e_header
 	{
 		e107::css('nodejs_pm', 'css/nodejs_pm.css');
 
+		$eufPrefix = 'user_plugin_nodejs_pm_';
+
 		// User defined settings.
-		$new_pm_alert = $this->defaultValues['user_plugin_nodejs_pm_new_pm_alert'];
-		$new_pm_sound = $this->defaultValues['user_plugin_nodejs_pm_new_pm_sound'];
-		$read_pm_alert = $this->defaultValues['user_plugin_nodejs_pm_read_pm_alert'];
-		$read_pm_sound = $this->defaultValues['user_plugin_nodejs_pm_read_pm_sound'];
+		$new_pm_alert = vartrue($this->defaultValues[$eufPrefix . 'new_pm_alert'], 0);
+		$new_pm_sound = vartrue($this->defaultValues[$eufPrefix . 'new_pm_sound'], 0);
+		$read_pm_alert = vartrue($this->defaultValues[$eufPrefix . 'read_pm_alert'], 0);
+		$read_pm_sound = vartrue($this->defaultValues[$eufPrefix . 'read_pm_sound'], 0);
 
 		// If admin disabled it globally.
 		if((int) $this->plugPrefs['nodejs_pm_alert'] === 0)
 		{
 			$new_pm_alert = 0;
-			$new_pm_sound = 0;
+			$read_pm_alert = 0;
 		}
 
 		// If admin disabled it globally.
 		if((int) $this->plugPrefs['nodejs_pm_sound'] === 0)
 		{
-			$read_pm_alert = 0;
+			$new_pm_sound = 0;
 			$read_pm_sound = 0;
 		}
 
