@@ -48,12 +48,13 @@ class nodejs_pm_e_header
 		e107::css('nodejs_pm', 'css/nodejs_pm.css');
 
 		$eufPrefix = 'user_plugin_nodejs_pm_';
+		$defs = $this->defaultValues;
 
 		// User defined settings.
-		$new_pm_alert = vartrue($this->defaultValues[$eufPrefix . 'new_pm_alert'], 0);
-		$new_pm_sound = vartrue($this->defaultValues[$eufPrefix . 'new_pm_sound'], 0);
-		$read_pm_alert = vartrue($this->defaultValues[$eufPrefix . 'read_pm_alert'], 0);
-		$read_pm_sound = vartrue($this->defaultValues[$eufPrefix . 'read_pm_sound'], 0);
+		$new_pm_alert = isset($defs[$eufPrefix . 'new_pm_alert']) ? intval($defs[$eufPrefix . 'new_pm_alert']) : 1;
+		$new_pm_sound = isset($defs[$eufPrefix . 'new_pm_sound']) ? intval($defs[$eufPrefix . 'new_pm_sound']) : 1;
+		$read_pm_alert = isset($defs[$eufPrefix . 'read_pm_alert']) ? intval($defs[$eufPrefix . 'read_pm_alert']) : 1;
+		$read_pm_sound = isset($defs[$eufPrefix . 'read_pm_sound']) ? intval($defs[$eufPrefix . 'read_pm_sound']) : 1;
 
 		// If admin disabled it globally.
 		if((int) $this->plugPrefs['nodejs_pm_alert'] === 0)
