@@ -28,7 +28,7 @@ class nodejs_pm_nodejs_notify
 			// Use global language file.
 			'label'       => LAN_PLUGIN_NODEJS_PM_NOTIFY_CONFIG_02,
 			// Extended User Field name from plugin.xml to store configuration by user.
-			// plugin_nodejs_pm_alert
+			// plugin_nodejs_pm_new_pm_alert
 			'field_alert' => 'new_pm_alert',
 			// Extended User Field name from plugin.xml to store configuration by user.
 			// plugin_nodejs_pm_new_pm_sound
@@ -40,7 +40,7 @@ class nodejs_pm_nodejs_notify
 			// Use global language file.
 			'label'       => LAN_PLUGIN_NODEJS_PM_NOTIFY_CONFIG_03,
 			// Extended User Field name from plugin.xml to store configuration by user.
-			// plugin_nodejs_pm_alert
+			// plugin_nodejs_pm_read_pm_alert
 			'field_alert' => 'read_pm_alert',
 			// Extended User Field name from plugin.xml to store configuration by user.
 			// plugin_nodejs_pm_read_pm_sound
