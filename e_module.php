@@ -15,6 +15,7 @@ e107::lan('nodejs_pm', false, true);
 $event = e107::getEvent();
 $event->register('user_pm_sent', 'nodejs_pm_event_user_pm_sent_callback');
 $event->register('user_pm_read', 'nodejs_pm_event_user_pm_read_callback');
+$event->register('login', 'nodejs_pm_event_login_callback');
 
 /**
  * Event callback after triggering "user_pm_sent".
@@ -129,6 +130,42 @@ function nodejs_pm_event_user_pm_read_callback($pm_id = 0)
 				'delay'    => 5000,
 			);
 			nodejs_enqueue_message($message);
+		}
+	}
+}
+
+/**
+ * Callback function to check EUF defaults.
+ */
+function nodejs_pm_event_login_callback($data)
+{
+	$db = e107::getDb();
+	$uid = (int) $data['user_id'];
+
+	// Start session.
+	$session_started = session_id() === '' ? false : true;
+	if($session_started)
+	{
+		session_start();
+	}
+
+	if($uid > 0 && !isset($_SESSION['nodejs_pm_eufs_updated']))
+	{
+		$_SESSION['nodejs_pm_eufs_updated'] = 1;
+
+		$visits = $db->retrieve('user', 'user_visits', 'user_id = ' . $uid);
+		// First time visit.
+		if((int) $visits === 0)
+		{
+			$eufs = array(
+				'user_plugin_nodejs_pm_new_pm_alert'  => 1,
+				'user_plugin_nodejs_pm_new_pm_sound'  => 1,
+				'user_plugin_nodejs_pm_read_pm_alert' => 1,
+				'user_plugin_nodejs_pm_read_pm_sound' => 1,
+				'WHERE'                               => 'user_extended_id = ' . $uid,
+			);
+
+			$db->update('user_extended', $eufs);
 		}
 	}
 }
