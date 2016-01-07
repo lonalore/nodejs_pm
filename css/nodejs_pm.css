@@ -1,3 +1,19 @@
+.nodejs-pm .badge {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 5px;
+    font-size: 9px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+    vertical-align: top;
+    white-space: nowrap;
+    text-align: center;
+    background-color: #999;
+    border-radius: 10px;
+    margin-left: 0;
+}
+
 .wrapper-alert .picture {
     float: left;
     height: 50px;
