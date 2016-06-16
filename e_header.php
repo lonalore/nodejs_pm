@@ -79,8 +79,8 @@ class nodejs_pm_e_header
 
 		e107::js('settings', array('nodejs_pm' => $js_options));
 
-		e107::js('nodejs_pm', 'js/nodejs_pm_menu.js', 'jquery', 5);
-		e107::js('nodejs_pm', 'js/nodejs_pm_alert.js', 'jquery', 5);
+		e107::js('footer', '{e_PLUGIN}nodejs_pm/js/nodejs_pm_menu.js', 'jquery', 5);
+		e107::js('footer', '{e_PLUGIN}nodejs_pm/js/nodejs_pm_alert.js', 'jquery', 5);
 	}
 }
 
